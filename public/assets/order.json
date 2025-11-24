@@ -1,0 +1,24 @@
+{
+  "foodItemsList": [
+    {
+      "foodId": 252,
+      "foodName": "pooran poli",
+      "quantity": 442,
+      "price": 412.99
+    },
+    {
+      "foodId": 2,
+      "foodName": "Garlic Naan",
+      "quantity": 43,
+      "price": 3.49
+    }
+  ],
+  "userId": 2002,
+  "restaurant": {
+    "id": 2002,
+    "name": "Restaurant 5",
+    "address": "Address Line 1",
+    "city": "Richmond",
+    "restaurantDescription": "restaurantDescription"
+  }
+}
