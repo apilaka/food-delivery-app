@@ -1,10 +1,11 @@
-import { FoodItem } from "../../shared/model/FoodItem";
+import { FoodItemDTO } from "../../shared/model/FoodItemDTO";
 import { Restaurant } from "../../shared/model/Restaurant";
+ 
+ 
 
 
 export interface OrderDTO{
 
-    foodItemsList?: FoodItem[];
-    userId?: number;
-    restaurant?: Restaurant;
+    foodItemsList?: FoodItemDTO[];
+      restaurant?: Restaurant;
 }

@@ -11,7 +11,8 @@ import { RestaurantListingComponent } from './components/restaurant-listing.comp
   ],
   imports: [
     CommonModule,
-    RestaurantListingRoutingModule
+    RestaurantListingRoutingModule,
+    
   ],
   exports: [
     RestaurantListingComponent

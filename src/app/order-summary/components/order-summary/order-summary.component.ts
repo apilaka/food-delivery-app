@@ -1,86 +1,106 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderDTO } from '../../model/OrderDTO';
 import { OrderService } from '../../service/OrderService';
-import { CommonModule, NgIf } from '@angular/common';
-import { OrderSummary } from '../../model/FoodItem';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
- 
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FoodItemDTO } from '../../../shared/model/FoodItemDTO';
+import orderJson from '../../../shared/order.json';
+import { SharedDataService } from '../../../shared/service/shared-data.service';
+import { FoodCataloguePageClass } from '../../../shared/model/FoodCataloguePageClass ';
+import { Restaurant } from '../../../restaurant-listing/model/restaurant';
+import { AwsUser } from '../../../user/model/User';
+
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.css'],
   imports: [CommonModule],
-
 })
-export class OrderSummaryComponent {
-closeDialog() {
-throw new Error('Method not implemented.');
-}
- orderData!: OrderDTO;
+
+export class OrderSummaryComponent implements OnInit {
+
+  closeDialog() {
+    console.log("Dialog is closed")
+  }
+
   orderSummary?: OrderDTO;
-  obj: any;
-  total?: any;
-  showDialog: boolean = false;
-  foodItemCart: never[] = [];
-  foodItemResponse: any;
+  showDialog: Boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private orderService: OrderService, private router: Router) { }
-  
-ngOnInit() {
+  restaurant!: Restaurant;
+  foodList: FoodItemDTO[] = [];
+  selectedFoodItems: FoodItemDTO[] = [];
+  orderData: FoodCataloguePageClass | null = null;
+  userId: number = 0;
+  awsUser!: AwsUser;
 
-    this.http.get<OrderDTO>('assets/order.json').subscribe(data => {
-      this.orderData = data;
-      console.log(this.orderData);
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private orderService: OrderService, private router: Router,
+    private sharedDataService: SharedDataService
+  ) { }
+
+  orderForm!: FormGroup;
+
+  ngOnInit() {
+    this.saveOrderDataFromInput();
+ 
+    // JSONObject  jsonString = JSON.stringify(this.orderData);
+    // console.log("JSON String" + jsonString);
+  }
+
+  getSelectedFoodItems() {
+    this.sharedDataService.selectedFoodItems.subscribe(
+      (items: FoodItemDTO[]) => {
+        this.selectedFoodItems = items;
+      },
+      (error) => {
+        console.error('Error fetching selected food items', error);
+      }
+    );
+    return this.selectedFoodItems;
+  }
+
+  getTotalPrice(): number {
+    return this.selectedFoodItems
+      .reduce((sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 0), 0);
+  }
+
+  saveOrderDataFromInput() {
+ 
+       
+    let restaurant = this.sharedDataService.getCurrentValue();
+    const selectedItems = this.getSelectedFoodItems();
+    let user = this.sharedDataService.getUserData();
+   // console.log("user value from Order Service " +JSON.stringify(user));
+     this.orderData = new FoodCataloguePageClass(this.selectedFoodItems, Number(user?.userId), restaurant);
+     this.orderService.saveOrder(JSON.stringify(this.awsUser));
+
+     this.upload();
+
+ 
+  }
+
+  getSampleData() {
+    this.sharedDataService.getSampleData((received: string) => {
+      console.log("received data is " + JSON.stringify(received));
     });
-
-  const dataString = this.route.snapshot.queryParamMap.get('data');
-
-  if (dataString) {
-
-   console.log("dataString is "+dataString)
-    this.orderSummary = JSON.parse(dataString);
-  } else {
-    console.error("No data found in query params");
   }
-}
 
-  saveOrder() {
-    this.orderService.saveOrder(this.orderData)
-      .subscribe(
-        response => {
-            this.showDialog = true;
-        },
-        error => {
-          console.error('Failed to save data:', error);
-        }
-      );
+  findUserById(id: Number): AwsUser {
+    this.orderService.findUserById(id).subscribe(user => {
+      this.awsUser = this.awsUser;
+     })
+     console.log("User from SharedDataService: "+this.sharedDataService.getUserData())
+    return this.awsUser;
   }
-onCheckOut() {
-          this.saveOrder();
 
-  this.orderSummary = {
-    foodItemsList: this.foodItemCart ?? [],
-    restaurant: this.foodItemResponse?.restaurant ?? null
-  };
+  upload() {
 
-  this.router.navigate(['/order'], {
-    queryParams: { data: JSON.stringify(this.order) }
-  });
-}
-order: OrderSummary = {
-  foodItemsList: [
-    { foodId: 1, foodName: 'Paneer Butter Masala', quantity: 2, price: 12.99 },
-    { foodId: 2, foodName: 'Garlic Naan', quantity: 3, price: 3.49 }
-  ],
-  userId: 2002,
-  restaurant: {
-    id: 2002,
-    name: 'Restaurant 5',
-    address: 'Address Line 1',
-    city: 'Richmond',
-    restaurantDescription: 'restaurantDescription'
+      let jsonString = JSON.stringify(this.orderData);
+console.log(jsonString);
+
+    this.orderService.uploadJson(jsonString).subscribe(res => {
+      console.log("Mongo updated", res);
+    });
   }
-};
-
 }

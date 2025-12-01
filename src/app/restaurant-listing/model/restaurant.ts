@@ -1,9 +1,11 @@
 export class Restaurant {
+ 
   id: number;
   name: string;
   address: string;
   city: string;
   restaurantDescription: string;
+
   
 
   constructor(

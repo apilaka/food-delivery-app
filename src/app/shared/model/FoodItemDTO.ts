@@ -1,4 +1,4 @@
-export interface FoodItem {
+export interface FoodItemDTO{
     id?: number;
     itemName?: string;
     itemDescription?: string;

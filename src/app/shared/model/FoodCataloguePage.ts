@@ -1,7 +1,11 @@
-import { FoodItem } from "./FoodItem";
-import { Restaurant } from "./Restaurant";
+import { Restaurant } from "../../order-summary/model/FoodItem";
+import { FoodItemDTO } from "./FoodItemDTO";
+ 
+ 
+ 
 
 export interface FoodCataloguePage{
-    foodItemsList:FoodItem[];
+    foodItemsList:FoodItemDTO[];
     restaurant:Restaurant;
+    userId:number;
 }

@@ -7,6 +7,9 @@ import { HeaderModule } from './header/header.module';
 import { RestaurantListingModule } from './restaurant-listing/restaurant-listing.module';
 import { provideHttpClient } from '@angular/common/http';
 import { FoodCatelogueModule } from './food-catelogue/food-catelogue.module';
+import { SharedDataService } from './shared/service/shared-data.service';
+import { FormsModule } from '@angular/forms';
+import { UserModule } from './user/user.module';
  
 
 
@@ -21,13 +24,11 @@ import { FoodCatelogueModule } from './food-catelogue/food-catelogue.module';
     AppRoutingModule ,
     HeaderModule,
     RestaurantListingModule,
-    FoodCatelogueModule,
-   
- 
-    
- 
+    FormsModule,
+    UserModule
+  
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(), SharedDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
