@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './components/user.component';
+import { ReactiveFormsModule } from '@angular/forms';
  
  
  
@@ -10,13 +11,13 @@ import { LoginComponent } from './components/user.component';
 
 @NgModule({
   declarations: [
-   
-    
+ 
   ],
   imports: [
     CommonModule,
-    UserRoutingModule,
-     LoginComponent
+    UserRoutingModule ,
+    ReactiveFormsModule,
+    LoginComponent
   ]
 })
 export class UserModule { }

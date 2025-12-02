@@ -1,79 +1,85 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedDataService } from '../../shared/service/shared-data.service';
 import { AwsUser } from '../model/User';
 import { UserService } from '../service/user.service';
-// import { BrowserModule } from "@angular/platform-browser";
- 
+import { FormsModule } from '@angular/forms';   // ✅ Add this
 
 @Component({
   selector: 'user-login',
   templateUrl: './user.component.html',
-  // imports: [BrowserModule]
+  // imports: [BrowserModule],
+  imports: [FormsModule],
+
+
 })
 export class LoginComponent {
 
   loginForm!: FormGroup;
-  authorized: Boolean =true;
+  authorized: Boolean = true;
   awsUser: AwsUser | null = null;
+  username: string = "";
+  password: any;
+
 
   constructor(
     private fb: FormBuilder,
-     private userService: UserService,
+    private userService: UserService,
     private router: Router,
     private sharedDataService: SharedDataService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // this.loginForm = this.fb.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', Validators.required]
-    // });
-this.loginProcess();
-    // this.userService.findUserById(2002).subscribe(user=>{
-    //   this.awsUser=user;
-    //    this.sharedDataService.setUserData(this.awsUser);
-    // })
-    
+    this.loginProcess(this.username);
+  }
+  userForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  });
+  onSubmit() {
+    console.log('User Input:', this.userForm.value);
+  }
+  loginProcess(username: String) {
+    console.log("Logging in");
+    this.findUserByUsername(username);
   }
 
-  get email() { return this.loginForm.get('email')!; }
-  get password() { return this.loginForm.get('password')!; }
+  findUserByUsername(username: String) {
+    this.userService.findUserByUsername(username).subscribe({
+      next: (user) => {
+        this.awsUser = user;
+        this.sharedDataService.setUserData(this.awsUser);
+        console.log(" Username:", this.awsUser.userName);
+        console.log("User Password:", this.awsUser.userPassword);
+        console.log("Supplied username:", username);
+        console.log("Supplied Password:", this.password);
 
-//   onLogin() {
-//  //   if (this.loginForm.invalid) return;
+        // Store the user data
+        this.sharedDataService.setUserData(this.awsUser);
 
-//     // this.authService.login(this.loginForm.value).subscribe({
-//     //   next: (res) => {
-//     //     console.log("Login success:", res);
-//     //     this.router.navigate(['/dashboard']);
-//     //   },
-//     //   error: (err) => {
-//     //     console.error("Login failed:", err);
-//     //     alert("Invalid login credentials");
-//     //   }
-//     // });
- // }
-loginProcess() {
-  console.log("Logging in");
+        // Navigate AFTER the data is ready
+       // this.router.navigate(['/user']);
 
-  this.userService.findUserById(2002).subscribe({
-    next: (user) => {
-      this.awsUser = user;
-      this.sharedDataService.setUserData(this.awsUser);
-      // console.log("User fetched:", this.awsUser);
+    if(this.authenticated())    {
+            this.router.navigate(['/restaurant']);
+        }
+        else
+     {
+        console.error("Failed login, access denied");
+          
+      }
+      },
+      error: (err) => {
+        console.error("Access denied", err);
+      }
+    });
+  }
 
-      // Store the user data
-      this.sharedDataService.setUserData(this.awsUser);
+  authenticated(){
+    return this.awsUser?.userName==this.username && this.awsUser?.userPassword==this.password;
+  }
 
-      // Navigate AFTER the data is ready
-      this.router.navigate(['/restaurant']);
-    },
-    error: (err) => {
-      console.error("User fetch failed", err);
-    }
-  });
-}
+
 
 }

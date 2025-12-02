@@ -22,7 +22,14 @@ import { AwsUser } from '../../../user/model/User';
 export class OrderSummaryComponent implements OnInit {
 
   closeDialog() {
-    console.log("Dialog is closed")
+ 
+    this.showDialog=false;
+      this.showHideOrderButtons=false;
+    
+  }
+
+  placeAnotherOrder(){
+    this.router.navigate(["/restaurant"])
   }
 
   orderSummary?: OrderDTO;
@@ -34,6 +41,8 @@ export class OrderSummaryComponent implements OnInit {
   orderData: FoodCataloguePageClass | null = null;
   userId: number = 0;
   awsUser!: AwsUser;
+  showHideOrderButtons!: Boolean;
+  
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private orderService: OrderService, private router: Router,
     private sharedDataService: SharedDataService
@@ -43,9 +52,6 @@ export class OrderSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.saveOrderDataFromInput();
- 
-    // JSONObject  jsonString = JSON.stringify(this.orderData);
-    // console.log("JSON String" + jsonString);
   }
 
   getSelectedFoodItems() {
@@ -71,10 +77,9 @@ export class OrderSummaryComponent implements OnInit {
     let restaurant = this.sharedDataService.getCurrentValue();
     const selectedItems = this.getSelectedFoodItems();
     let user = this.sharedDataService.getUserData();
-   // console.log("user value from Order Service " +JSON.stringify(user));
      this.orderData = new FoodCataloguePageClass(this.selectedFoodItems, Number(user?.userId), restaurant);
      this.orderService.saveOrder(JSON.stringify(this.awsUser));
-
+this.showHideOrderButtons=true;
      this.upload();
 
  
@@ -82,7 +87,7 @@ export class OrderSummaryComponent implements OnInit {
 
   getSampleData() {
     this.sharedDataService.getSampleData((received: string) => {
-      console.log("received data is " + JSON.stringify(received));
+
     });
   }
 
@@ -90,17 +95,17 @@ export class OrderSummaryComponent implements OnInit {
     this.orderService.findUserById(id).subscribe(user => {
       this.awsUser = this.awsUser;
      })
-     console.log("User from SharedDataService: "+this.sharedDataService.getUserData())
     return this.awsUser;
   }
 
   upload() {
 
       let jsonString = JSON.stringify(this.orderData);
-console.log(jsonString);
+
 
     this.orderService.uploadJson(jsonString).subscribe(res => {
       console.log("Mongo updated", res);
     });
+    this.showDialog=true;
   }
 }

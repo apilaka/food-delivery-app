@@ -11,11 +11,12 @@ export class SharedDataService {
  
   constructor() { }
 
-  private sampleData: string = '';
-  private restaurant!: Restaurant;
-  private awsUser!: AwsUser;
- 
 
+
+
+ 
+//sample data
+  private sampleData: string = '';
   setSampleData(data: string) {
     console.log("Data set from SharedDataService", data);
     this.sampleData = data;
@@ -25,7 +26,8 @@ export class SharedDataService {
     callback(data);
   }
 
-  
+  //restaurant data
+    private restaurant!: Restaurant;
   setRestaurant(data: Restaurant) {
     console.log("Data set from SharedDataService", data);
     this.restaurant = data;
@@ -33,7 +35,8 @@ export class SharedDataService {
   getRestaurant(): Restaurant {
     return this.restaurant;
   }
-/** USER */
+//user data
+  private awsUser!: AwsUser;
   private userSource = new BehaviorSubject<AwsUser | null>(null);
   user$ = this.userSource.asObservable();
 
@@ -41,17 +44,20 @@ export class SharedDataService {
    // console.log("User set:", user);
     this.userSource.next(user);
   }
-
   getUserData() {
     return this.userSource.value;
   }
 
+
+  //Food data
   private dataSource = new BehaviorSubject<any>(null);
   currentData = this.dataSource.asObservable();
 
   private orderDataSource = new BehaviorSubject<FoodCataloguePageClass | null>(null);
   inputOrderData = this.orderDataSource.asObservable();
 
+
+  
   // Holds the current list of selected food items
   private foodSource = new BehaviorSubject<FoodItemDTO[]>([]);
   selectedFoodItems = this.foodSource.asObservable();
@@ -69,26 +75,7 @@ export class SharedDataService {
   updateFood(data: FoodItem[]) {
     this.foodSource.next(data);
   }
-  // setOrderData(restaurant: Restaurant, foodItems: FoodItemDTO[]) {
-  //   if (!this.orderData) {
-  //     this.orderData = {
-  //       foodItemsList: foodItems,
-  //       restaurant: restaurant,
-  //       userId: 2002
-  //     };
-  //     return;
-  //   }
-  //   this.orderData.foodItemsList = foodItems;
-  //   this.orderData.restaurant = restaurant;
-  // }
-
-  // getOrderData(restaurant: Restaurant, foodItems: FoodItemDTO[]): FoodCataloguePage | null {
-  //   return this.orderData;   // return stored object
-  // }
-  // saveOrderData(foodCataloguePageClass: FoodCataloguePageClass) {
-  //   return this.inputOrderData;
-  // }
-}
+  }
 function callback(data: Restaurant) {
   throw new Error("Function not implemented.");
 }

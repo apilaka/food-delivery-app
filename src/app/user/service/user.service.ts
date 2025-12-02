@@ -22,6 +22,11 @@ export class UserService{
     const headers = { 'Content-Type': 'application/json' };
     return this.http.get<any>(this.user_url+"fetchUserById/2002");
   }
+
+     findUserByUsername(username: String):Observable<AwsUser>  {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.get<any>("http://localhost:8082/user/findUserByUsername?username=apilaka");
+  }
     private handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError(error.message || error);

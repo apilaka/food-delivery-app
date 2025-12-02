@@ -22,7 +22,8 @@
         </tr>
       </tfoot>
     </table>
-    <button class="checkout-button" (click)="saveOrderDataFromInput()">Place Order</button>
+    <button class="checkout-button"  *ngIf="(showHideOrderButtons)" (click)="saveOrderDataFromInput()">Place Order</button>
+   &nbsp;&nbsp;&nbsp;<button *ngIf="(!showHideOrderButtons)" class="checkout-button" (click)="placeAnotherOrder() ">Place another order</button>
   </div>
     <div class="dialog-container" *ngIf="showDialog">
     <div class="dialog-box">
