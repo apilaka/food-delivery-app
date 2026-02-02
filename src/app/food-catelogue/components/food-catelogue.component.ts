@@ -8,7 +8,8 @@ import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import { SharedDataService } from '../../shared/service/shared-data.service';
 import { FoodItemDTO } from '../../shared/model/FoodItemDTO';
 import { Form, FormsModule } from '@angular/forms'
-import { AwsUser } from '../../user/model/User';
+import { AwsUser } from '../../user/model/aws-user';
+ 
  
  
 
@@ -44,13 +45,13 @@ i: any;
 
   this.sendSelectedFoods();
 let restaurant = this.sharedDataService.getCurrentValue();
-//console.log("Current Value:", restaurant);
-this.restaurant=restaurant;
-this.restaurantId=restaurant.id;
+console.log("Current Value:", restaurant);
+this.restaurant=restaurant.id;
+this.restaurantId=restaurant;
 this.getFoodItemsByRestaurant(this.restaurantId);
 
 let user =this.sharedDataService.getUserData();
-//console.log("user Value:", user);
+console.log("user Value:", user);
 
   
  

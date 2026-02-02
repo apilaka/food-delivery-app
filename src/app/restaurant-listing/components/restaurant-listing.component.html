@@ -1,22 +1,24 @@
-<!--  
- 
-<table class="food-table">
-    <tr *ngFor="let item of roodItems">
-        <td>
-    <img [src]="item" alt="User Avatar" style="width: 100px; height: 100px">
-    </td>
-    </tr>
-</table>
+<header class="header">
+  <div class="header-container">
+  <h1 class="header-logo">Code Decode Food Delivery</h1>
+    <nav class="header-nav">
+         
+               
+            <img src="assets/avatar-pics/avatar.jpg" alt="User Avatar" style="width: 5%; height:2%">   You are logged in pilaka {{ username }}
+       
+          
+      <h1 class="header-logo">
+      </h1>
+    </nav>
 
-  -->
-
+  </div>
+</header>
+  
 <main class="main-content my-gap"> 
   <div class="restaurant-grid">
 
     <div class="restaurant-card"  *ngFor="let restaurant of restaurantList" >
-      <!-- <div class="restaurant-image" >  
-        <img [src]="restaurant" alt="User Avatar" style="width: 100px; height: 100px">
-      </div> -->
+ 
       <div class="restaurant-details">
         <h3 class="restaurant-name">
         {{ restaurant.name}},  {{ restaurant.address}},  {{ restaurant.city}}

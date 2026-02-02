@@ -1,18 +1,45 @@
 <div class="login-container">
-  <h2>User Login</h2>
 
+  <div  *ngIf="mytitle; else loading">{{mytitle}}</div>
+
+  <ng-template #loading [ngIf]="mytitle">
+   {{ mytitle}}
+  </ng-template>
+  <h2>User Login</h2>
+Title: <input type="text" [value]="title()" (input)="'changeTitle($event)'" />
   <!-- Template-driven form -->
   <form #userForm="ngForm" (ngSubmit)="loginProcess(userForm.value)">
-    
-  <label for="username">Username:</label>
-<input type="text" id="username" [(ngModel)]="username" name="username" required>
-
-  <label for="password">Password:</label>
+    <label for="username">Username:</label>
+    <input type="text" id="username" [(ngModel)]="username" name="username" required>
+    <label for="password">Password:</label>
     <input type="password" id="password" [(ngModel)]="password" name="password" required>
-
- 
-
     <button type="submit" (click)="loginProcess(username)">Login</button>
   </form>
-</div>password
- 
+  {{changeDetaction}}
+Who<input id ="who"/>
+
+  <div class="">
+    @for (user of awsusers; track $index){
+
+    <div>
+      {{user.userName}}
+    </div>
+    <div>
+      {{user.address}}
+    </div>
+    <div>
+      {{user.userPassword}}
+    </div>
+    <div>
+      {{user.city}}
+    </div>
+    <div>
+      {{user.userId}}
+    </div>
+    }
+    @defer {
+    <div>
+      We dont have
+    </div>
+    }
+  </div>

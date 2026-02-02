@@ -4,7 +4,8 @@ import { FoodItem } from "../../order-summary/model/FoodItem";
 import { FoodItemDTO } from "../model/FoodItemDTO";
 import { Restaurant } from "../../restaurant-listing/model/restaurant";
 import { FoodCataloguePageClass } from "../model/FoodCataloguePageClass ";
-import { AwsUser } from "../../user/model/User";
+import { AwsUser } from "../../user/model/aws-user";
+ 
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {

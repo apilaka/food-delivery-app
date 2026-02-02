@@ -6,5 +6,6 @@ export interface FoodItemDTO{
     price?: number;
     restaurantId?: number;
     quantity: number;
+    image:string;
 }
 

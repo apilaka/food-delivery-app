@@ -18,14 +18,15 @@ export class RestaurantListingComponent {
 
     this.getAllRestaurants();
 
-// let user = this.shareddataService.getUserData();
+let user = this.shareddataService.getUserData()?.userName;
+this.username=user;
 //     console.log("user value from Restaurant listing" +JSON.stringify(user));
      
   }
   restaurantList: Restaurant[] = [];
   restaurant: Restaurant | null = null;
   restaurantById: Restaurant | null = null;
-
+  username: any;
 
   getAllRestaurants() {
     this.restaurantService.getAllRestaurants().subscribe(

@@ -12,7 +12,8 @@ const routes: Routes =
   , {path: 'restaurant/:id', component: RestaurantListingComponent, pathMatch: 'full'}
   , { path: 'catalogue', component: FoodCatelogueComponent }
  ,{ path: 'order', component: OrderSummaryComponent }
-  ,{ path: 'user', component: LoginComponent }
+  ,{ path: 'user', component: LoginComponent },
+  
 
 ];
 

@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { SharedDataService } from '../../shared/service/shared-data.service';
-import { AwsUser } from '../../user/model/User';
+ 
 import orderJson from '../../shared/order.json';
+import { AwsUser } from '../../user/model/aws-user';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,7 @@ import orderJson from '../../shared/order.json';
 export class OrderService {
 uploadJson(orderJson: any): Observable<any> {
   const headers = { 'Content-Type': 'application/json' };
-  return this.http.post<any>(`${this.base_url}/saveNewOrder`, orderJson, { headers });
+  return this.http.post<any>(`${this.base_url}/saveOrder`, orderJson, { headers });
 }
 
 

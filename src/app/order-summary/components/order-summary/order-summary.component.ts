@@ -10,7 +10,8 @@ import orderJson from '../../../shared/order.json';
 import { SharedDataService } from '../../../shared/service/shared-data.service';
 import { FoodCataloguePageClass } from '../../../shared/model/FoodCataloguePageClass ';
 import { Restaurant } from '../../../restaurant-listing/model/restaurant';
-import { AwsUser } from '../../../user/model/User';
+import { AwsUser } from '../../../user/model/aws-user';
+ 
 
 @Component({
   selector: 'app-order-summary',

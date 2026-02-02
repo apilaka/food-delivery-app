@@ -3,6 +3,7 @@ export interface FoodItem {
   itemName: string;
   quantity: number;
   price: number;
+  image: string;
 }
 
 export interface Restaurant {
@@ -11,6 +12,7 @@ export interface Restaurant {
   address: string;
   city: string;
   restaurantDescription: string;
+  
 }
 
 export interface OrderSummary {

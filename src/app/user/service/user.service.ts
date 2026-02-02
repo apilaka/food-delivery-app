@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AwsUser } from '../model/User';
+import { AwsUser } from '../model/aws-user';
+ 
  
 
 @Injectable({
@@ -25,7 +26,7 @@ export class UserService{
 
      findUserByUsername(username: String):Observable<AwsUser>  {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.get<any>("http://localhost:8082/user/findUserByUsername?username=apilaka");
+    return this.http.get<any>("http://localhost:8082/user/findUserByUsername/kamli");
   }
     private handleError(error: any) {
     console.error('An error occurred:', error);
