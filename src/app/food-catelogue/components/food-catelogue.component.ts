@@ -4,7 +4,7 @@ import { FoodCataloguePage } from '../../shared/model/FoodCataloguePage';
 import { FoodItem } from '../../order-summary/model/FoodItem';
 import { FoodItemService } from '../service/food-item.service';
 import { Restaurant } from '../../restaurant-listing/model/restaurant';
-import { CommonModule, NgIf, NgForOf } from '@angular/common';
+
 import { SharedDataService } from '../../shared/service/shared-data.service';
 import { FoodItemDTO } from '../../shared/model/FoodItemDTO';
 import { Form, FormsModule } from '@angular/forms'
@@ -18,7 +18,7 @@ import { AwsUser } from '../../user/model/aws-user';
   templateUrl: './food-catelogue.component.html',
   styleUrls: ['./food-catelogue.component.css'],
   standalone: true,   // ✅ important
-  imports: [CommonModule] // ✅ import CommonModule for ngIf/ngFor
+  imports: [] // ✅ import CommonModule for ngIf/ngFor
 })
 export class FoodCatelogueComponent {
 capturedObject: any = {};

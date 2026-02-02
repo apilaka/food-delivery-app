@@ -1,38 +1,38 @@
 <header class="header">
   <div class="header-container">
-  <h1 class="header-logo">Code Decode Food Delivery</h1>
+    <h1 class="header-logo">Code Decode Food Delivery</h1>
     <nav class="header-nav">
-         
-               
-            <img src="assets/avatar-pics/avatar.jpg" alt="User Avatar" style="width: 5%; height:2%">   You are logged in pilaka {{ username }}
-       
-          
+
+
+      <img src="assets/avatar-pics/avatar.jpg" alt="User Avatar" style="width: 5%; height:2%">   You are logged in pilaka {{ username }}
+
+
       <h1 class="header-logo">
       </h1>
     </nav>
 
   </div>
 </header>
-  
-<main class="main-content my-gap"> 
+
+<main class="main-content my-gap">
   <div class="restaurant-grid">
 
-    <div class="restaurant-card"  *ngFor="let restaurant of restaurantList" >
- 
-      <div class="restaurant-details">
-        <h3 class="restaurant-name">
-        {{ restaurant.name}},  {{ restaurant.address}},  {{ restaurant.city}}
-        </h3>
-        <div class="restaurant-rating">
-          <span class="rating"></span><i class="fa fa-star"> 4.5</i>
+    @for (restaurant of restaurantList; track restaurant) {
+      <div class="restaurant-card"  >
+        <div class="restaurant-details">
+          <h3 class="restaurant-name">
+            {{ restaurant.name}},  {{ restaurant.address}},  {{ restaurant.city}}
+          </h3>
+          <div class="restaurant-rating">
+            <span class="rating"></span><i class="fa fa-star"> 4.5</i>
             <span class="rating-count">500</span>
+          </div>
+          <button class="order-btn" (click)="orderNow(restaurant.id)" style="height: 5%; width:25%;">
+            Order Now
+          </button>
         </div>
-       <button class="order-btn" (click)="orderNow(restaurant.id)" style="height: 5%; width:25%;">
-        Order Now
-       </button>
-
       </div>
-    </div>
+    }
 
   </div>
 </main>

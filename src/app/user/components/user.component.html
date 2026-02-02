@@ -1,12 +1,15 @@
 <div class="login-container">
 
-  <div  *ngIf="mytitle; else loading">{{mytitle}}</div>
+  @if (mytitle) {
+    <div >{{mytitle}}</div>
+  } @else {
+    {{ mytitle}}
+  }
 
-  <ng-template #loading [ngIf]="mytitle">
-   {{ mytitle}}
-  </ng-template>
+  @if (mytitle) {
+  }
   <h2>User Login</h2>
-Title: <input type="text" [value]="title()" (input)="'changeTitle($event)'" />
+  Title: <input type="text" [value]="title()" (input)="'changeTitle($event)'" />
   <!-- Template-driven form -->
   <form #userForm="ngForm" (ngSubmit)="loginProcess(userForm.value)">
     <label for="username">Username:</label>
@@ -16,30 +19,30 @@ Title: <input type="text" [value]="title()" (input)="'changeTitle($event)'" />
     <button type="submit" (click)="loginProcess(username)">Login</button>
   </form>
   {{changeDetaction}}
-Who<input id ="who"/>
+  Who<input id ="who"/>
 
   <div class="">
     @for (user of awsusers; track $index){
 
-    <div>
-      {{user.userName}}
-    </div>
-    <div>
-      {{user.address}}
-    </div>
-    <div>
-      {{user.userPassword}}
-    </div>
-    <div>
-      {{user.city}}
-    </div>
-    <div>
-      {{user.userId}}
-    </div>
+      <div>
+        {{user.userName}}
+      </div>
+      <div>
+        {{user.address}}
+      </div>
+      <div>
+        {{user.userPassword}}
+      </div>
+      <div>
+        {{user.city}}
+      </div>
+      <div>
+        {{user.userId}}
+      </div>
     }
     @defer {
     <div>
       We dont have
     </div>
-    }
-  </div>
+  }
+</div>

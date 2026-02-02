@@ -9,14 +9,14 @@ import { AwsUser } from '../model/aws-user';
 import { AwsUserInterface } from '../model/aws-user-interface';
 import { BehaviorSubject, interval, Observable, of } from 'rxjs';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { CommonModule, NgIf } from '@angular/common';
+
 
  
 @Component({
   selector: 'user-login',
   templateUrl: './user.component.html',
   // imports: [BrowserModule],
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule],
 })
 export class LoginComponent implements OnInit {
 [x: string]: any;

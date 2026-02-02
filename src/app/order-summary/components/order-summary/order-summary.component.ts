@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderDTO } from '../../model/OrderDTO';
 import { OrderService } from '../../service/OrderService';
-import { CommonModule } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FoodItemDTO } from '../../../shared/model/FoodItemDTO';
@@ -17,7 +17,7 @@ import { AwsUser } from '../../../user/model/aws-user';
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.css'],
-  imports: [CommonModule],
+  imports: [],
 })
 
 export class OrderSummaryComponent implements OnInit {
