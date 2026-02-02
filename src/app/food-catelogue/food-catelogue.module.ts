@@ -20,7 +20,7 @@ const routes: Routes = [{path: '', component: FoodCatelogueComponent},
     CommonModule,
     FoodCatelogueRoutingModule,
     FoodCatelogueComponent,
-    BrowserModule
+ //   BrowserModule
   ]
 })
 export class FoodCatelogueModule { }

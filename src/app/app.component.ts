@@ -2,6 +2,7 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { HeaderModule } from './header/header.module';
 import { AwsUserInterface } from './user/model/aws-user-interface';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
